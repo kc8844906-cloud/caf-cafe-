@@ -1,0 +1,161 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+  --radius-3xl: calc(var(--radius) + 12px);
+  --radius-4xl: calc(var(--radius) + 16px);
+  --font-display: "Fraunces", Georgia, serif;
+  --font-sans: "Karla", system-ui, sans-serif;
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-olive: var(--olive);
+  --color-olive-foreground: var(--olive-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+}
+
+:root {
+  --radius: 0.75rem;
+  /* Ultra-luxurious Obsidian & Specialty Gold Palette matching CAF Crystal Tower */
+  --background: #0b0c10;
+  --foreground: #f4f5f7;
+  --card: #13151b;
+  --card-foreground: #f4f5f7;
+  --popover: #13151b;
+  --popover-foreground: #f4f5f7;
+  --primary: #d4af37;
+  --primary-foreground: #0b0c10;
+  --secondary: #1a1e27;
+  --secondary-foreground: #e6e8ee;
+  --muted: #181b23;
+  --muted-foreground: #8f97a8;
+  --accent: #e5b352;
+  --accent-foreground: #0b0c10;
+  --olive: #4a6b52;
+  --olive-foreground: #f4f5f7;
+  --destructive: #ef4444;
+  --destructive-foreground: #ffffff;
+  --border: #222633;
+  --input: #222633;
+  --ring: #d4af37;
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+
+  html {
+    scroll-behavior: smooth;
+    color-scheme: dark;
+  }
+
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    selection-background-color: #d4af37;
+    selection-color: #0b0c10;
+  }
+
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-display);
+    font-weight: 600;
+    letter-spacing: -0.01em;
+  }
+
+  /* Interactive Click Styles (jis par bhi click kare uska style) */
+  button, a, [role="button"] {
+    transition: transform 0.15s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.15s ease, border-color 0.15s ease;
+  }
+
+  button:active, a:active, [role="button"]:active {
+    transform: scale(0.97);
+  }
+
+  /* Custom sleek scrollbar */
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #0b0c10;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #232733;
+    border-radius: 4px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #d4af37;
+  }
+
+  /* Distinctive Modern Scroll-Driven Reveal Animations */
+  .scroll-reveal {
+    opacity: 0;
+    transform: translateY(32px) scale(0.985);
+    transition: opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1), transform 0.75s cubic-bezier(0.16, 1, 0.3, 1);
+    will-change: opacity, transform;
+  }
+
+  .scroll-reveal.is-revealed {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    @supports ((animation-timeline: view()) and (animation-range: entry)) {
+      @keyframes scrollRevealEffect {
+        from {
+          opacity: 0.2;
+          transform: translateY(36px) scale(0.98);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0) scale(1);
+        }
+      }
+
+      .scroll-reveal {
+        opacity: 1;
+        transform: none;
+        transition: none;
+        animation: scrollRevealEffect auto cubic-bezier(0.16, 1, 0.3, 1) backwards;
+        animation-timeline: view(block);
+        animation-range: entry 5% cover 30%;
+      }
+    }
+  }
+
+  /* Smooth scroll snapping touch support */
+  @media (pointer: coarse) {
+    body {
+      -webkit-overflow-scrolling: touch;
+    }
+  }
+}
